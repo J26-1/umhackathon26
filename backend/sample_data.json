@@ -1,0 +1,87 @@
+{
+  "options": [
+    {
+      "option_name": "Matcha Latte Promotion",
+      "company_field": "fnb",
+      "item_name": "Matcha Latte",
+      "selling_price": 14,
+      "unit_cost": 5,
+      "available_capacity": 400,
+      "estimated_demand": 320,
+      "operating_cost": 300,
+      "risk_level": 0.15,
+      "notes": "Popular drink with stable demand",
+      "sector_data": {
+        "ingredient_cost": 120,
+        "preparation_time_minutes": 4,
+        "spoilage_risk": 0.08,
+        "promotion_cost": 150,
+        "repeat_purchase_score": 0,
+        "packaging_cost": 0,
+        "campaign_cost": 0,
+        "review_sentiment_score": 0,
+        "machine_hours": 0,
+        "raw_material_cost": 0,
+        "defect_risk": 0,
+        "supplier_lead_time_days": 0
+      }
+    },
+    {
+      "option_name": "Lip Serum Campaign",
+      "company_field": "beauty",
+      "item_name": "Lip Serum",
+      "selling_price": 39,
+      "unit_cost": 14,
+      "available_capacity": 250,
+      "estimated_demand": 190,
+      "operating_cost": 500,
+      "risk_level": 0.2,
+      "notes": "Strong social media traction",
+      "sector_data": {
+        "ingredient_cost": 0,
+        "preparation_time_minutes": 0,
+        "spoilage_risk": 0,
+        "promotion_cost": 0,
+        "repeat_purchase_score": 8,
+        "packaging_cost": 200,
+        "campaign_cost": 350,
+        "review_sentiment_score": 7,
+        "machine_hours": 0,
+        "raw_material_cost": 0,
+        "defect_risk": 0,
+        "supplier_lead_time_days": 0
+      }
+    },
+    {
+      "option_name": "Cutlery Batch A",
+      "company_field": "manufacturing",
+      "item_name": "Stainless Spoon Set",
+      "selling_price": 28,
+      "unit_cost": 11,
+      "available_capacity": 600,
+      "estimated_demand": 420,
+      "operating_cost": 650,
+      "risk_level": 0.22,
+      "notes": "Export customer with stable order volume",
+      "sector_data": {
+        "ingredient_cost": 0,
+        "preparation_time_minutes": 0,
+        "spoilage_risk": 0,
+        "promotion_cost": 0,
+        "repeat_purchase_score": 0,
+        "packaging_cost": 0,
+        "campaign_cost": 0,
+        "review_sentiment_score": 0,
+        "machine_hours": 40,
+        "raw_material_cost": 300,
+        "defect_risk": 0.04,
+        "supplier_lead_time_days": 10
+      }
+    }
+  ],
+  "context": {
+    "company_field": "fnb",
+    "goal": "maximize_profit",
+    "time_horizon": "weekly"
+  }
+}
