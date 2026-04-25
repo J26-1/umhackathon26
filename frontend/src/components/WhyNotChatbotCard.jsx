@@ -7,23 +7,23 @@ export default function WhyNotChatbotCard() {
 
       <div className="grid grid-2">
         <div className="kpi-card">
-          <strong>Structured comparison</strong>
-          <p className="small">Compares 2–5 business options side by side.</p>
+          <strong>Structured scoring engine</strong>
+          <p className="small">Calculates profit, ROI, risk, confidence, and opportunity cost.</p>
         </div>
 
         <div className="kpi-card">
-          <strong>Opportunity cost engine</strong>
-          <p className="small">Calculates hidden profit loss between choices.</p>
+          <strong>Real-world market retrieval</strong>
+          <p className="small">Searches fresh market information before GLM generates insights.</p>
         </div>
 
         <div className="kpi-card">
-          <strong>Prediction logic</strong>
-          <p className="small">Estimates revenue, profit, ROI, risk, confidence, and score.</p>
+          <strong>Knowledge base injection</strong>
+          <p className="small">Stores and retrieves relevant snippets for decision context.</p>
         </div>
 
         <div className="kpi-card">
           <strong>Ilmu GLM-5.1 reasoning</strong>
-          <p className="small">Explains trade-offs, interprets notes, and recommends actions.</p>
+          <p className="small">Explains trade-offs and strategies using user data + market signals.</p>
         </div>
       </div>
     </div>

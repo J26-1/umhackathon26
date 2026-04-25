@@ -67,6 +67,7 @@ def generate_insight(
     metrics: List[Dict],
     best: Dict,
     tradeoffs: List[str],
+    market_intelligence: Dict | None = None,
 ) -> Dict:
     client = get_client()
 
@@ -102,6 +103,9 @@ Best ranked option:
 Tradeoffs:
 {json.dumps(tradeoffs, indent=2)}
 
+Market intelligence and latest external signal:
+{json.dumps(market_intelligence or {}, indent=2)}
+
 Return strict JSON only:
 {{
   "summary": "short business paragraph",
@@ -120,6 +124,8 @@ Rules:
 - Do not claim unavailable data is certain.
 - Give practical SME-friendly advice.
 - Do not use markdown.
+- Use market intelligence only when sources are available.
+- Do not invent market trends if market signal is unknown.
 """
 
     try:

@@ -1,7 +1,7 @@
 from datetime import datetime
 import csv
 import io
-
+from market_intelligence import get_market_intelligence
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -52,7 +52,14 @@ def input_limits():
 def analyze(request: AnalyzeRequest):
     cleaned_options = clean_options(request.options)
 
-    metrics = compute_all_metrics(cleaned_options, request.context)
+    market_intelligence = get_market_intelligence(
+        request.context.model_dump(),
+        [option.model_dump() for option in cleaned_options],
+    )
+
+    market_signal = market_intelligence.get("market_signal", {})
+
+    metrics = compute_all_metrics(cleaned_options, request.context, market_signal)
     metrics = calculate_opportunity_costs(metrics)
 
     best = pick_best(metrics)
@@ -63,6 +70,7 @@ def analyze(request: AnalyzeRequest):
         metrics,
         best,
         tradeoffs,
+        market_intelligence,
     )
 
     history_store.append(
@@ -81,9 +89,24 @@ def analyze(request: AnalyzeRequest):
         "metrics": metrics,
         "best": best,
         "insight": insight,
+        "market_intelligence": market_intelligence,
         "input_policy": input_limits_summary(),
     }
 
+@app.get("/market-search")
+def market_search(query: str):
+    from market_intelligence import fetch_google_news_rss, estimate_market_signal
+    from knowledge_base import add_knowledge_items
+
+    items = fetch_google_news_rss(query)
+    add_knowledge_items(items)
+    signal = estimate_market_signal(items, query)
+
+    return {
+        "query": query,
+        "market_signal": signal,
+        "items": items,
+    }
 
 @app.post("/simulate")
 def simulate(request: ScenarioRequest):

@@ -11,6 +11,9 @@ import WhyNotChatbotCard from '../components/WhyNotChatbotCard'
 import DecisionReport from '../components/DecisionReport'
 import OptionContextCard from '../components/OptionContextCard'
 import InputLimitsCard from '../components/InputLimitsCard'
+import MarketSignalCard from '../components/MarketSignalCard'
+import SourceSummaryPanel from '../components/SourceSummaryPanel'
+import CompanyMonitorPanel from '../components/CompanyMonitorPanel'
 
 export default function ResultsPage({ analysisResult }) {
   if (!analysisResult) {
@@ -43,6 +46,10 @@ export default function ResultsPage({ analysisResult }) {
         metrics={analysisResult.metrics}
         best={analysisResult.best}
       />
+
+      <MarketSignalCard marketIntelligence={analysisResult.market_intelligence} />
+      <SourceSummaryPanel marketIntelligence={analysisResult.market_intelligence} />
+      <CompanyMonitorPanel />
 
       <OptionContextCard options={analysisResult.metrics} />
       <ComparisonTable metrics={analysisResult.metrics} />

@@ -156,7 +156,7 @@ def sector_adjustment(option: BusinessOption) -> Dict[str, float]:
     }
 
 
-def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
+def compute_metrics(option: BusinessOption, context: UserContext, market_signal: dict | None = None) -> Dict:
     effective_demand = min(option.available_capacity, option.estimated_demand)
     adjustment = sector_adjustment(option)
     missing_fields, input_completeness = get_fallback_fields(option)
@@ -169,14 +169,9 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
     expected_profit = expected_revenue - total_cost
 
     margin = safe_div(option.selling_price - option.unit_cost, option.selling_price)
-
-    roi = safe_div(
-        expected_profit,
-        total_cost if total_cost > 0 else 1,
-    )
+    roi = safe_div(expected_profit, total_cost if total_cost > 0 else 1)
 
     unmet_demand = max(option.estimated_demand - option.available_capacity, 0)
-
     stockout_risk = safe_div(
         unmet_demand,
         option.estimated_demand if option.estimated_demand > 0 else 1,
@@ -192,10 +187,26 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
     risk_score += stockout_risk * 100 * 0.25
     risk_score += adjustment["risk_add"]
 
+    if market_signal:
+        if market_signal.get("competitor_pressure_signal") == "high":
+            risk_score += 8
+        elif market_signal.get("competitor_pressure_signal") == "medium":
+            risk_score += 4
+
     if expected_profit <= 0:
         risk_score += 18
 
     risk_score = min(max(risk_score, 0), 100)
+
+    market_bonus = 0
+    if market_signal:
+        trend_score = market_signal.get("trend_score", 50)
+        market_bonus = (trend_score - 50) * 0.35
+
+        if market_signal.get("demand_signal") == "rising":
+            market_bonus += 5
+        elif market_signal.get("demand_signal") == "weak":
+            market_bonus -= 5
 
     goal = context.goal
 
@@ -206,8 +217,8 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
             + margin * 100 * 0.12
             + (100 - risk_score) * 0.10
             + adjustment["bonus"]
+            + market_bonus
         )
-
     elif goal == "reduce_risk":
         base_score = (
             (100 - risk_score) * 0.45
@@ -215,8 +226,8 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
             + margin * 100 * 0.08
             + input_completeness * 0.12
             + adjustment["bonus"]
+            + market_bonus * 0.5
         )
-
     elif goal == "fast_sales":
         base_score = (
             predicted_units * 0.30
@@ -224,8 +235,8 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
             + (100 - adjustment["competitor_pressure_score"] * 100) * 0.10
             + margin * 100 * 0.08
             + adjustment["bonus"]
+            + market_bonus * 1.4
         )
-
     else:
         base_score = (
             capacity_utilization * 100 * 0.32
@@ -233,15 +244,17 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
             + (100 - risk_score) * 0.12
             - adjustment["capacity_penalty"]
             + adjustment["bonus"]
+            + market_bonus * 0.6
         )
 
     decision_confidence = min(
         100,
         max(
             0,
-            input_completeness * 0.55
-            + adjustment["demand_confidence"] * 100 * 0.25
-            + (100 - risk_score) * 0.20,
+            input_completeness * 0.50
+            + adjustment["demand_confidence"] * 100 * 0.20
+            + (100 - risk_score) * 0.15
+            + (market_signal.get("trend_score", 50) if market_signal else 50) * 0.15,
         ),
     )
 
@@ -259,6 +272,7 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
         "capacity_utilization": round(capacity_utilization * 100, 2),
         "effective_demand": round(effective_demand, 2),
         "base_score": round(base_score, 2),
+        "market_bonus": round(market_bonus, 2),
         "decision_confidence": round(decision_confidence, 2),
         "input_completeness": input_completeness,
         "fallback_fields_used": missing_fields,
@@ -268,12 +282,12 @@ def compute_metrics(option: BusinessOption, context: UserContext) -> Dict:
         "notes": option.notes,
     }
 
-
 def compute_all_metrics(
     options: List[BusinessOption],
     context: UserContext,
+    market_signal: dict | None = None,
 ) -> List[Dict]:
-    return [compute_metrics(option, context) for option in options]
+    return [compute_metrics(option, context, market_signal) for option in options]
 
 
 def calculate_opportunity_costs(metrics: List[Dict]) -> List[Dict]:
