@@ -41,12 +41,12 @@ def build_query(context: dict, options: list) -> str:
     return f"{industry} SME market trend {option_terms} {region}"
 
 
-def fetch_google_news_rss(query: str, max_items: int = 10) -> List[Dict]:
+def fetch_google_news_rss(query: str, max_items: int = 10):
     encoded = urllib.parse.quote(query)
     url = f"https://news.google.com/rss/search?q={encoded}&hl=en-MY&gl=MY&ceid=MY:en"
 
     try:
-        response = requests.get(url, timeout=8)
+        response = requests.get(url, timeout=20)
         response.raise_for_status()
 
         root = ET.fromstring(response.content)
@@ -58,22 +58,25 @@ def fetch_google_news_rss(query: str, max_items: int = 10) -> List[Dict]:
             pub_date = item.findtext("pubDate") or ""
             description = clean_text(item.findtext("description"))
 
-            items.append(
-                {
-                    "topic": query,
-                    "title": title,
-                    "link": link,
-                    "published_at": pub_date,
-                    "summary": description[:400],
-                    "source_type": "Google News RSS",
-                    "retrieved_at": datetime.now().isoformat(),
-                }
-            )
+            items.append({
+                "topic": query,
+                "title": title,
+                "link": link,
+                "published_at": pub_date,
+                "summary": description[:400],
+                "source_type": "Google News RSS",
+                "retrieved_at": datetime.now().isoformat(),
+            })
+
+        # 🔥 IMPORTANT fallback
+        if not items:
+            print("RSS returned empty, fallback triggered")
+            return []
 
         return items
 
     except Exception as error:
-        print("Market RSS fetch error:", error)
+        print("RSS fetch error:", error)
         return []
 
 
