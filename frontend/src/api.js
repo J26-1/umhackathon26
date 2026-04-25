@@ -83,6 +83,9 @@ export async function uploadCsvPreview(file) {
 }
 
 export async function marketSearch(query) {
-  const response = await fetch(`${BASE_URL}/market-search?query=${encodeURIComponent(query)}`)
+  const response = await fetch(
+    `${BASE_URL}/market-search?query=${encodeURIComponent(query)}`
+  )
+
   return handleResponse(response, 'Market search failed')
 }
