@@ -28,7 +28,7 @@ Unlike a normal chatbot, Ka-ching AI combines internal business calculations wit
 ## Demo
 
 Live Demo:  
-https://your-vercel-app.vercel.app  
+[https://your-vercel-app.vercel.app ](https://umhackathon26.vercel.app/) 
 
 Backend API:  
 https://kaching-ai-backend.onrender.com  
