@@ -85,6 +85,7 @@ ILMU GLM-5.1 API
 Structured AI Output
         ↓
 Dashboard UI
+```
 
 ## Tech Stack
 
@@ -131,12 +132,12 @@ http://localhost:5173
 
 ---
 ## Limitations
-✔ No persistent database (MVP uses local storage)
-✔ No full authentication system (demo mode)
-✔ Market data depends on external sources (may occasionally fail)
-✔ No scheduled scraping (manual trigger only)
-✔ No ERP / Shopee integration yet
-✔ Render free tier may cause cold start delay
+- No persistent database (MVP uses local storage)
+- No full authentication system (demo mode)
+- Market data depends on external sources (may occasionally fail)
+- No scheduled scraping (manual trigger only)
+- No ERP / Shopee integration yet
+- Render free tier may cause cold start delay
 
 ## System Strengths
 ✔ Works with imperfect SME data
