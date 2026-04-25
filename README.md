@@ -69,6 +69,22 @@ Pitch Video:
 - Adjust cost / demand / price
 - Instant impact visualization
 ---
+## 🏗️ System Architecture
+
+```text
+React Frontend (Vercel)
+        ↓
+FastAPI Backend (Render)
+        ↓
+Decision Intelligence Engine
+        ↓
+Market Intelligence Layer (RSS + Knowledge Base)
+        ↓
+ILMU GLM-5.1 API
+        ↓
+Structured AI Output
+        ↓
+Dashboard UI
 
 ## Tech Stack
 
@@ -100,6 +116,8 @@ pip install -r requirements.txt
 copy .env.example .env
 uvicorn app:app --reload
 ```
+Backend runs at:
+http://127.0.0.1:8000
 
 ### 3. Frontend Setup
 ```bash
@@ -108,4 +126,30 @@ npm install
 npm install recharts
 npm run dev
 ```
+Frontend runs at:
+http://localhost:5173
 
+---
+## Limitations
+✔ No persistent database (MVP uses local storage)
+✔ No full authentication system (demo mode)
+✔ Market data depends on external sources (may occasionally fail)
+✔ No scheduled scraping (manual trigger only)
+✔ No ERP / Shopee integration yet
+✔ Render free tier may cause cold start delay
+
+## System Strengths
+✔ Works with imperfect SME data
+✔ Combines AI + real-world signals
+✔ Explainable and transparent decisions
+✔ Fallback logic for reliability
+✔ Source citation for trust
+
+## Future Enhancements
+✔ ERP / POS / Shopee integration
+✔ Vector database (RAG upgrade)
+✔ Automated market monitoring
+✔ Subscription & billing system
+✔ Mobile app version
+✔ Predictive analytics & forecasting
+✔ AI-powered supplier negotiation
