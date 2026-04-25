@@ -19,6 +19,10 @@ Ka-ching AI is a decision intelligence platform that helps SMEs make better deci
 
 Unlike traditional systems, it works with **imperfect SME data** and provides **clear, explainable recommendations**.
 
+Ka-ching AI is an AI-powered decision intelligence platform for SMEs. It helps business owners compare multiple business options, calculate profit, ROI, risk, opportunity cost, and receive clear recommendations powered by Ilmu GLM-5.1.
+
+Unlike a normal chatbot, Ka-ching AI combines internal business calculations with real-world market intelligence. The system retrieves external market signals, ranks sources by relevance, injects the evidence into Ilmu GLM-5.1, and displays cited sources for transparency.
+
 ---
 
 ## Demo
@@ -69,7 +73,7 @@ Pitch Video:
 - Adjust cost / demand / price
 - Instant impact visualization
 ---
-## 🏗️ System Architecture
+## System Architecture
 
 ```text
 React Frontend (Vercel)
@@ -140,17 +144,17 @@ http://localhost:5173
 - Render free tier may cause cold start delay
 
 ## System Strengths
-✔ Works with imperfect SME data
-✔ Combines AI + real-world signals
-✔ Explainable and transparent decisions
-✔ Fallback logic for reliability
-✔ Source citation for trust
+- Works with imperfect SME data
+- Combines AI + real-world signals
+- Explainable and transparent decisions
+- Fallback logic for reliability
+- Source citation for trust
 
 ## Future Enhancements
-✔ ERP / POS / Shopee integration
-✔ Vector database (RAG upgrade)
-✔ Automated market monitoring
-✔ Subscription & billing system
-✔ Mobile app version
-✔ Predictive analytics & forecasting
-✔ AI-powered supplier negotiation
+- ERP / POS / Shopee integration
+- Vector database (RAG upgrade)
+- Automated market monitoring
+- Subscription & billing system
+- Mobile app version
+- Predictive analytics & forecasting
+- AI-powered supplier negotiation
