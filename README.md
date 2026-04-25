@@ -34,6 +34,7 @@ Backend API:
 https://kaching-ai-backend.onrender.com  
 
 Pitch Video:  
+https://drive.google.com/file/d/1iM5eG3KgoRIgMF3TdVEzP234wpwHw_Jc/view?usp=sharing
 
 ---
 ## Key Features
