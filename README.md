@@ -91,7 +91,7 @@ git clone https://github.com/YOUR_USERNAME/kaching-ai-sme-decision-intelligence.
 cd kaching-ai-sme-decision-intelligence
 ```
 
-## Backend Setup
+### 2. Backend Setup
 ```bash
 cd backend
 python -m venv venv
@@ -101,7 +101,7 @@ copy .env.example .env
 uvicorn app:app --reload
 ```
 
-## Frontend Setup
+### 3. Frontend Setup
 ```bash
 cd frontend
 npm install
