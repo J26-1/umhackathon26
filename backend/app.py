@@ -59,7 +59,12 @@ def analyze(request: AnalyzeRequest):
 
     market_signal = market_intelligence.get("market_signal", {})
 
-    metrics = compute_all_metrics(cleaned_options, request.context, market_signal)
+    metrics = compute_all_metrics(
+        cleaned_options,
+        request.context,
+        market_signal,
+    )
+
     metrics = calculate_opportunity_costs(metrics)
 
     best = pick_best(metrics)

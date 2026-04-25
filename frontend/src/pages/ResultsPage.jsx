@@ -16,6 +16,8 @@ import SourceSummaryPanel from '../components/SourceSummaryPanel'
 import CompanyMonitorPanel from '../components/CompanyMonitorPanel'
 
 export default function ResultsPage({ analysisResult }) {
+  console.log('ANALYSIS RESULT:', analysisResult)
+
   if (!analysisResult) {
     return (
       <div className="container section">
@@ -33,7 +35,7 @@ export default function ResultsPage({ analysisResult }) {
           <span className="badge">Ka-ching AI</span>
           <span className="pill">Ilmu GLM-5.1 reasoning enabled</span>
           <span className="pill">3-level input strategy</span>
-          <span className="pill">General SME engine</span>
+          <span className="pill">Real-world market intelligence</span>
         </div>
       </div>
 
@@ -47,8 +49,14 @@ export default function ResultsPage({ analysisResult }) {
         best={analysisResult.best}
       />
 
-      <MarketSignalCard marketIntelligence={analysisResult.market_intelligence} />
-      <SourceSummaryPanel marketIntelligence={analysisResult.market_intelligence} />
+      <MarketSignalCard
+        marketIntelligence={analysisResult.market_intelligence}
+      />
+
+      <SourceSummaryPanel
+        marketIntelligence={analysisResult.market_intelligence}
+      />
+
       <CompanyMonitorPanel />
 
       <OptionContextCard options={analysisResult.metrics} />

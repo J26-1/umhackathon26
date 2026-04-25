@@ -1,4 +1,4 @@
-const BASE_URL = 'https://kaching-ai-backend.onrender.com'
+const BASE_URL = 'http://127.0.0.1:8000'
 
 async function handleResponse(response, fallbackMessage) {
   if (!response.ok) {

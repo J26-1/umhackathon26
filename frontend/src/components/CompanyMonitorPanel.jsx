@@ -17,7 +17,7 @@ export default function CompanyMonitorPanel() {
       const data = await marketSearch(query)
       setResult(data)
     } catch (error) {
-      alert(error.message)
+      alert(error.message || 'Market search failed')
     } finally {
       setLoading(false)
     }
@@ -38,6 +38,7 @@ export default function CompanyMonitorPanel() {
           placeholder="Example: lip serum Malaysia trend"
           style={{ flex: 1, minWidth: 240 }}
         />
+
         <button className="btn-primary" onClick={runSearch} disabled={loading}>
           {loading ? 'Searching...' : 'Search Latest Info'}
         </button>
@@ -46,30 +47,47 @@ export default function CompanyMonitorPanel() {
       {result && (
         <div style={{ marginTop: 20 }}>
           <h4>Market Signal</h4>
+
           <div className="kpi-grid">
             <div className="kpi-card">
               <div className="small">Trend Score</div>
-              <div className="kpi-value">{result.market_signal.trend_score}/100</div>
+              <div className="kpi-value">
+                {result.market_signal?.trend_score}/100
+              </div>
             </div>
+
             <div className="kpi-card">
               <div className="small">Demand</div>
-              <div className="kpi-value">{result.market_signal.demand_signal}</div>
+              <div className="kpi-value">
+                {result.market_signal?.demand_signal}
+              </div>
             </div>
+
             <div className="kpi-card">
               <div className="small">Pressure</div>
-              <div className="kpi-value">{result.market_signal.competitor_pressure_signal}</div>
+              <div className="kpi-value">
+                {result.market_signal?.competitor_pressure_signal}
+              </div>
             </div>
           </div>
 
           <h4 style={{ marginTop: 20 }}>Latest Sources</h4>
+
           <div className="grid">
             {result.items?.map((item, idx) => (
               <div className="kpi-card" key={idx}>
-                <strong>{item.title}</strong>
+                <strong>
+                  [{idx + 1}] {item.title}
+                </strong>
                 <p className="small">{item.published_at}</p>
                 {item.link && (
-                  <a href={item.link} target="_blank" rel="noreferrer" className="highlight">
-                    Open source
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="highlight"
+                  >
+                    Open source ↗
                   </a>
                 )}
               </div>
